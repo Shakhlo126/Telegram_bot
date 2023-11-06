@@ -9,7 +9,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start', ])
 async def startfun(message: Message):
-    await message.reply(f"Assalomu alaykum {message.from_user.full_name} Echo botga xush kelibsiz!!!")
+    await message.reply(f"Assalomu alaykum {message.from_user.full_name} Repeat botga xush kelibsiz!!!")
 
 
 @dp.message_handler(commands=['help', ])
