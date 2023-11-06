@@ -1,0 +1,24 @@
+from aiogram import Bot, Dispatcher, executor
+from aiogram.types import Message
+
+
+BOT_TOKEN = '6785408577:AAEfY7qtx0SdNRMu4oT69v2XjJ5pErBrtk4'
+bot = Bot(token=BOT_TOKEN)
+dp = Dispatcher(bot)
+
+
+@dp.message_handler(commands=['start', ])
+async def startfun(message: Message):
+    await message.reply(f"Assalomu alaykum {message.from_user.full_name} Echo botga xush kelibsiz!!!")
+
+
+@dp.message_handler(commands=['help', ])
+async def helpfun(msg: Message):
+    await msg.reply(f"Assalomu alaykum {msg.from_user.full_name} Sizga qanday yordam kerak!!!")
+
+@dp.message_handler()
+async def echofun(msg: Message):
+    await msg.reply(msg.text)
+
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
