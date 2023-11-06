@@ -1,0 +1,28 @@
+from aiogram import Bot, Dispatcher , executor
+from aiogram.types import Message
+import wikipedia
+
+BOT_TOKEN = '6785408577:AAEfY7qtx0SdNRMu4oT69v2XjJ5pErBrtk4'
+bot = Bot(token=BOT_TOKEN)
+dp = Dispatcher(bot)
+wikipedia.set_lang('uz')
+
+@dp.message_handler(commands=['start', ])
+async def startfun(message: Message):
+    await message.reply(f"Assalomu alaykum {message.from_user.full_name} wikipedia botga xush kelibsiz!!!")
+
+
+@dp.message_handler(commands=['help', ])
+async def helpfun(msg: Message):
+    await msg.reply(f"Assalomu alaykum {msg.from_user.full_name} Sizga qanday yordam kerak!!!")
+
+@dp.message_handler()
+async def wikifun(msg: Message):
+    try:
+        respon = wikipedia.summary(msg.text)
+        await msg.reply(respon)
+    except:
+        await msg.reply("Bunday maqola yoq")
+
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
