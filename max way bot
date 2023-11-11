@@ -1,0 +1,257 @@
+from aiogram import Bot, Dispatcher, executor
+from aiogram.types import Message
+from button import start_button , dastavka_button , location_button , maxway_locations ,maxwayr_locations, til_buttton , startrus_button , dastavkarus_button , locationrus_button
+
+BOT_TOKEN = '6785408577:AAEfY7qtx0SdNRMu4oT69v2XjJ5pErBrtk4'
+bot = Bot(token=BOT_TOKEN)
+dp = Dispatcher(bot)
+
+@dp.message_handler(commands=('start'))
+async def startfun(message: Message):
+    await message.reply("Tilni tanlang:" , reply_markup=til_buttton)
+
+@dp.message_handler(text=("O'zbekcha"))
+async def startfun(message: Message):
+    await message.reply(f"Assalomu alaykum {message.from_user.full_name} Botga xush kelibsiz!!!" , reply_markup=start_button)
+
+@dp.message_handler(text=("Русский"))
+async def startfun(message: Message):
+    await message.reply(f"Здравствуйте {message.from_user.full_name} добро пожаловать в Max way бот!!!" , reply_markup=startrus_button)
+
+@dp.message_handler(text=['🍕 Меню'])
+async def rusmenyu(msg:Message):
+    await msg.reply('Заберите свой заказ самостоятельно 🙋‍♂️ или выберите доставку 🚙' , reply_markup=dastavkarus_button)
+
+@dp.message_handler(text=['🚙 Доставка'])
+async def rusdostabka(msg:Message):
+    await msg.reply("Куда нужно доставить Ваш заказ? Отправьте свою локацию или сохраненный адрес и мы определим ближайший к вам филиал 🍕 📍" , reply_markup=locationrus_button)
+
+@dp.message_handler(text=['🍕 Menyu',])
+async def menyu(msg : Message):
+    await msg.reply('Buyurtmangizni mustaqil olib keting 🙋‍♂️ yoki yetkazish xizmatini tanlang 🚙' , reply_markup=dastavka_button)
+
+@dp.message_handler(text=['🚙 Yetkazish'])
+async def yetkaz(msg : Message):
+    await msg.reply('Buyurtmangizni qaerga yetkazish kerak? Lokatsiyani yoki saqlangan manzilni jo‘nating va biz sizga eng yaqin joylashgan filialni aniqlaymiz 🍕 📍' , reply_markup=location_button)
+
+@dp.message_handler(text=['🏃 Olib ketish'])
+async def olbket(msg : Message):
+    await msg.reply('Siz uchun qaysi filialimiz qulay?', reply_markup=maxway_locations)
+
+@dp.message_handler(text=('🏃 Самовывоз'))
+async def vizv(msg:Message):
+    await msg.reply('Откуда Вам удобнее забрать заказ? Отправьте свою локацию или сохраненный адрес и мы определим ближайший к вам филиал 🍕 📍' , reply_markup=maxwayr_locations)
+
+@dp.message_handler(text=("📖 Мои заказы"))
+async def zkz(msg:Message):
+    await msg.reply("Мои заказы:")
+
+# @dp.message_handler(text=())
+# async def ovqat(msg:Message):
+#     await msg.reply('Nima buyurtma qilasz?', reply_markup=ovqat_button)
+
+@dp.message_handler(text='🍕 Filiallarimiz')
+async def filial(msg:Message):
+    await msg.reply('Bizning filiallarimiz :' , reply_markup=maxway_locations)
+
+@dp.message_handler(text=('🍕 Наши филиалы'))
+async def filll(msg:Message):
+    await msg.reply('Наши филиалы :', reply_markup=maxwayr_locations)
+
+@dp.message_handler(text='☎️ Qayta aloqa')
+async def aloqa(msg:Message):
+    await msg.reply('📲 Yagona call-markaz: 1174 yoki (71) 203-66-66')
+
+@dp.message_handler(text=('☎️ Обратная связь'))
+async def svyaz(msg:Message):
+    await msg.reply('📲 Единый call-центр: 1174 или (71) 203-66-66')
+
+@dp.message_handler(text=['🏃 Olib ketish'])
+async def olb_ket(msg : Message):
+    await msg.reply('Buyurtmani qaerdan olib ketish siz uchun qulay? Lokatsiyani yoki saqlangan manzilni jo‘nating va biz sizga eng yaqin joylashgan filialni aniqlaymiz 🍕 📍', locationrus_button)
+
+@dp.message_handler(text=['⬅️ Orqaga'])
+async def ortga(msg : Message):
+    await msg.reply(f"Assalomu alaykum {msg.from_user.full_name} Botga xush kelibsiz!!!" , reply_markup=start_button)
+
+@dp.message_handler(text=('⬅️ Назад'))
+async def startfun(message: Message):
+    await message.reply(f"Здравствуйте {message.from_user.full_name} добро пожаловать в Max way бот!!!" , reply_markup=startrus_button)
+
+@dp.message_handler(text=['📖 Mening buyurtmalarim'])
+async def zakaz(msg : Message):
+    await msg.reply('Mening buyurtmalarim:')
+
+@dp.message_handler(text='⚙️ Sozlamalar')
+async def nastroyka(msg:Message):
+    await msg.reply("Sozlamalar bo'yicha xatolarni bartaraf etish uchun botni qayta ishga yuriting")
+
+
+@dp.message_handler(text='⚙️ Настройки')
+async def nastroyka(msg:Message):
+    await msg.reply("Запустите бота еще раз, чтобы устранить ошибку настроек")
+
+
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
+
+
+#buttons
+from aiogram.types import ReplyKeyboardMarkup , KeyboardButton
+
+start_button = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton('🍕 Menyu'),
+            KeyboardButton('📖 Mening buyurtmalarim'),
+            KeyboardButton('🍕 Filiallarimiz')],
+        [
+            [
+            KeyboardButton('☎️ Qayta aloqa'),
+            KeyboardButton('⚙️ Sozlamalar')
+                ]
+        ]
+    ] ,
+    resize_keyboard=True
+)
+
+dastavka_button = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton('🚙 Yetkazish'),
+            KeyboardButton('🏃 Olib ketish')
+        ],
+        [
+            KeyboardButton('⬅️ Orqaga')
+        ]
+    ] ,
+    resize_keyboard=True
+)
+
+location_button = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+        KeyboardButton('Eng yaqin filialni aniqlash'),
+        KeyboardButton('⬅️ Orqaga')
+            ]
+    ],
+    resize_keyboard=True
+)
+
+maxway_locations = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton('Max way Maksim Gorkiy'),
+            KeyboardButton('Max way Mega Planet')
+        ],
+        [
+            KeyboardButton('Max way Aviasozlar'),
+            KeyboardButton('Max way Risoviy')
+        ],
+        [
+            KeyboardButton('Max way Magic city'),
+            KeyboardButton('Max way Samarqand Darvoza')
+        ],
+        [
+            KeyboardButton('Max way Parkent'),
+            KeyboardButton('Max way Universam')
+        ],
+        [
+            KeyboardButton('Max way Next'),
+            KeyboardButton('Maw way Muqimiy')
+        ],
+        [
+KeyboardButton('⬅️ Orqaga')
+        ]
+    ],
+    resize_keyboard=True
+)
+
+ovqat_button = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton('Lavash'),
+            KeyboardButton('Burger'),
+            KeyboardButton('Clab')
+        ]
+    ],
+    resize_keyboard=True
+)
+
+til_buttton = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton("O'zbekcha"),
+            KeyboardButton("Русский")
+        ]
+    ],
+    resize_keyboard=True
+)
+
+startrus_button = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            [
+            KeyboardButton('🍕 Меню'),
+            KeyboardButton('📖 Мои заказы'),
+            KeyboardButton('🍕 Наши филиалы')],
+        [
+            KeyboardButton('☎️ Обратная связь'),
+            KeyboardButton('⚙️ Настройки')
+                ]
+        ]
+    ] ,
+    resize_keyboard=True
+)
+
+dastavkarus_button = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton('🚙 Доставка'),
+            KeyboardButton('🏃 Самовывоз')
+        ],
+        [
+            KeyboardButton('⬅️ Назад')
+        ]
+    ] ,
+    resize_keyboard=True
+)
+
+locationrus_button = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+        KeyboardButton('📍Определить ближайший филиал'),
+        KeyboardButton('⬅️ Назад')
+            ]
+    ],
+    resize_keyboard=True
+)
+
+maxwayr_locations = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton('Max way Maksim Gorkiy'),
+            KeyboardButton('Max way Mega Planet')
+        ],
+        [
+            KeyboardButton('Max way Aviasozlar'),
+            KeyboardButton('Max way Risoviy')
+        ],
+        [
+            KeyboardButton('Max way Magic city'),
+            KeyboardButton('Max way Samarqand Darvoza')
+        ],
+        [
+            KeyboardButton('Max way Parkent'),
+            KeyboardButton('Max way Universam')
+        ],
+        [
+            KeyboardButton('Max way Next'),
+            KeyboardButton('Maw way Muqimiy')
+        ],
+        [
+KeyboardButton('⬅️ Назад ')
+        ]
+    ],
+    resize_keyboard=True
+)
